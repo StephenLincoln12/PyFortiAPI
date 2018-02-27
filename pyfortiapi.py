@@ -507,7 +507,8 @@ class FortiGate:
         """
         api_url = self.urlbase + "api/v2/cmdb/firewall/policy/"
         # Check whether object already exists
-        if self.does_exist(api_url + str(policy_id)):
+        # If policy_id is None, skip this step
+        if self.does_exist(api_url + str(policy_id)) and policy_id != None:
             return 424
         result = self.post(api_url, "{{'json': {data}}}".format(data=data))
         return result
